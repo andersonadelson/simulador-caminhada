@@ -24,7 +24,7 @@ simulador-caminhada/
 
 1. **Clone o Repositório**
    ```bash
-   git clone <url-do-repositório>
+   git clone https://github.com/andersonadelson/simulador-caminhada.git
    ```
 2. **Abra o Projeto**
    
