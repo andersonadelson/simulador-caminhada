@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Animação do Boneco</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #character {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+            transition: transform 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+    <img id="character" src="parado.jpg" alt="Boneco" width="10%" height="auto">
+
+    <script>
+        let character = document.getElementById('character');
+        let posX = 50;
+        let interval = null;
+        let animationInterval = null;
+        let isMoving = false;
+        let currentFrame = 0;
+        // Utiliza apenas um frame "parado" para suavizar a animação
+        const walkingFrames = ["anda-01.jpg", "parado.jpg", "anda-02.jpg"];
+
+        const idleFrame = "parado.jpg";
+        let currentDirection = null; // "left" ou "right"
+
+        function startMoving(direction) {
+            if (isMoving && currentDirection === direction) return;
+            isMoving = true;
+            currentDirection = direction;
+
+            // Inverte a imagem se mover para a esquerda
+            if (direction === "left") {
+                character.style.transform = "translateY(-50%) scaleX(-1)";
+            } else {
+                character.style.transform = "translateY(-50%) scaleX(1)";
+            }
+            
+            // Atualiza imediatamente para o primeiro frame de caminhada para reduzir o arrasto
+            currentFrame = 0;
+            character.src = walkingFrames[currentFrame];
+
+            // Inicia a animação da caminhada com intervalo de 200ms
+            animationInterval = setInterval(() => {
+                currentFrame = (currentFrame + 1) % walkingFrames.length;
+                character.src = walkingFrames[currentFrame];
+            }, 200);
+
+            // Atualiza a posição do boneco
+            interval = setInterval(() => {
+                if (direction === "right") {
+                    posX += 5;
+                } else {
+                    posX -= 5;
+                }
+                character.style.left = posX + "px";
+            }, 50);
+        }
+
+        function stopMoving() {
+            isMoving = false;
+            currentDirection = null;
+            clearInterval(interval);
+            clearInterval(animationInterval);
+            // Retorna para a imagem parada
+            character.src = idleFrame;
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.repeat) return;
+            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                startMoving(e.key === "ArrowRight" ? "right" : "left");
+            }
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                stopMoving();
+            }
+        });
+    </script>
+</body>
+</html>
