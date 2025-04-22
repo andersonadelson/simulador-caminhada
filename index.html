@@ -27,7 +27,7 @@
         let animationInterval = null;
         let isMoving = false;
         let currentFrame = 0;
-        // Utiliza apenas um frame "parado" para suavizar a animação
+        
         const walkingFrames = ["anda-01.jpg", "parado.jpg", "anda-02.jpg"];
 
         const idleFrame = "parado.jpg";
@@ -38,24 +38,24 @@
             isMoving = true;
             currentDirection = direction;
 
-            // Inverte a imagem se mover para a esquerda
+            
             if (direction === "left") {
                 character.style.transform = "translateY(-50%) scaleX(-1)";
             } else {
                 character.style.transform = "translateY(-50%) scaleX(1)";
             }
             
-            // Atualiza imediatamente para o primeiro frame de caminhada para reduzir o arrasto
+            
             currentFrame = 0;
             character.src = walkingFrames[currentFrame];
 
-            // Inicia a animação da caminhada com intervalo de 200ms
+           
             animationInterval = setInterval(() => {
                 currentFrame = (currentFrame + 1) % walkingFrames.length;
                 character.src = walkingFrames[currentFrame];
             }, 200);
 
-            // Atualiza a posição do boneco
+            
             interval = setInterval(() => {
                 if (direction === "right") {
                     posX += 5;
@@ -71,7 +71,7 @@
             currentDirection = null;
             clearInterval(interval);
             clearInterval(animationInterval);
-            // Retorna para a imagem parada
+            
             character.src = idleFrame;
         }
 
