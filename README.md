@@ -45,6 +45,3 @@ simulador-caminhada/
 
 Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues para melhorias ou correções.
 
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
